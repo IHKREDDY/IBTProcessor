@@ -12,14 +12,24 @@ namespace IBTProcessor
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        static void Main()
+        static void Main(string[] args)
         {
-            ServiceBase[] ServicesToRun;
-            ServicesToRun = new ServiceBase[]
+
+            if (Environment.UserInteractive)
             {
+                IBTProcessor service1 = new IBTProcessor();
+                service1.TestStartupAndStop(args);
+            }
+            else
+            {
+                ServiceBase[] ServicesToRun;
+                ServicesToRun = new ServiceBase[]
+                {
                 new IBTProcessor()
-            };
-            ServiceBase.Run(ServicesToRun);
+                };
+                ServiceBase.Run(ServicesToRun);
+            }
+
         }
     }
 }
