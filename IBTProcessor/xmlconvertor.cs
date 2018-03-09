@@ -4,14 +4,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using System.Configuration;
 
 namespace IBTProcessor
 {
     class XMLconvertor
     {
-        public static IBTTermSheet convertXMLtoIBTTermSheet()
+        public static IBTTermSheet convertXMLtoIBTTermSheet(string IBTXML,Boolean readFromFile)
         {
-            XDocument xdoc = XDocument.Load("../../IBT.xml");
+            XDocument xdoc;
+
+            if (readFromFile)
+            {
+                xdoc = XDocument.Load(ConfigurationSettings.AppSettings["IBTSourceFile"]);
+            }
+            else
+            {
+               xdoc = XDocument.Parse(IBTXML);
+            }
+           
 
             IBTTermSheet objIBTTermSheet = new IBTTermSheet();
 

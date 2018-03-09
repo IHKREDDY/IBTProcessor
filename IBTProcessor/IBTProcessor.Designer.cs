@@ -28,6 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            this.IBTTimer = new System.Windows.Forms.Timer(this.components);
+            // 
+            // IBTTimer
+            // 
+            this.IBTTimer.Interval = 5000;
+            this.IBTTimer.Tick += new System.EventHandler(this.IBTTimer_Tick);
             // 
             // IBTProcessor
             // 
@@ -36,5 +43,7 @@
         }
 
         #endregion
+
+        private System.Windows.Forms.Timer IBTTimer;
     }
 }

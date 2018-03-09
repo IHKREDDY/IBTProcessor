@@ -18,7 +18,9 @@ namespace IBTProcessor
           foreach(var evt in  objIBTTermSheet.Events)
           {
                 //Get this from config
-                if(evt.EventType=="1")
+                //Event List to be maintained in config, as of now PartnerB is interested in EventType 1
+
+                if (evt.EventType=="1")
                 {
                     messageBody.Append("EventType - " + evt.EventType);
                     messageBody.Append(Environment.NewLine);
@@ -30,11 +32,13 @@ namespace IBTProcessor
           if(eventMatched)
           {
                 var objInstrument = objIBTTermSheet.Instrument.First();
+                //Get ProductNameFull
                 messageBody.Append("ProductNameFull - " + objInstrument.ProductNameFull);
                 messageBody.Append(Environment.NewLine);
+                //Get IBT Type Code
                 messageBody.Append("IBTTypeCode - " + objInstrument.IBTTypeCode);
                 messageBody.Append(Environment.NewLine);
-
+                //Get ISIN
                 var ISIN = (from instrmentID in objInstrument.InstrumentIds
                            where instrmentID.IdSchemeCode == "I-"
                            select instrmentID.IdValue).First();
@@ -42,8 +46,8 @@ namespace IBTProcessor
                 messageBody.Append(Environment.NewLine);
             }
 
-            //If event is attached , send SMTP email
-            SMTP.SendEmail("admin@vontobel.com", "user@bankabc.com", "IBT Term Sheet", messageBody.ToString());
+            //send SMTP email
+           // SMTP.SendEmail("admin@vontobel.com", "user@bankabc.com", "IBT Term Sheet", messageBody.ToString());
 
             return true;
         }
